@@ -1,123 +1,216 @@
 <script>
 import {Link} from "@inertiajs/vue3";
+import Navbar from "@/Components/Navbar.vue";
+
 
 export default {
     components:{
+        Navbar,
         Link
-    }
+    },
+    props:[
+        'posts'
+    ],
 }
+
 </script>
 
 <template>
-    <div class="header">
+    <Navbar/>
 
-        <b><h1>EVcompare.io</h1></b>
+    <div class="breadcrumbs">
+        <a href="/">Main Page</a> <span>></span> Новости и анонсы
+    </div>
 
-        <div class="search">
-
-            <div class="search-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.9399 18.5624L13.4474 12.0699C14.4549 10.7675 14.9999 9.17496 14.9999 7.49997C14.9999 5.49498 14.2174 3.61498 12.8024 2.19749C11.3874 0.779996 9.50246 0 7.49997 0C5.49748 0 3.61248 0.782496 2.19749 2.19749C0.779997 3.61248 0 5.49498 0 7.49997C0 9.50246 0.782496 11.3875 2.19749 12.8024C3.61248 14.2199 5.49498 14.9999 7.49997 14.9999C9.17496 14.9999 10.765 14.4549 12.0674 13.4499L18.5599 19.9399C18.579 19.959 18.6016 19.9741 18.6264 19.9844C18.6513 19.9947 18.678 20 18.7049 20C18.7318 20 18.7585 19.9947 18.7834 19.9844C18.8083 19.9741 18.8309 19.959 18.8499 19.9399L19.9399 18.8524C19.959 18.8334 19.9741 18.8108 19.9844 18.7859C19.9947 18.761 20 18.7343 20 18.7074C20 18.6805 19.9947 18.6538 19.9844 18.6289C19.9741 18.6041 19.959 18.5815 19.9399 18.5624ZM11.4599 11.46C10.4 12.5174 8.99496 13.0999 7.49997 13.0999C6.00497 13.0999 4.59998 12.5174 3.53998 11.46C2.48249 10.4 1.89999 8.99496 1.89999 7.49997C1.89999 6.00497 2.48249 4.59748 3.53998 3.53998C4.59998 2.48249 6.00497 1.89999 7.49997 1.89999C8.99496 1.89999 10.4025 2.47999 11.4599 3.53998C12.5174 4.59998 13.0999 6.00497 13.0999 7.49997C13.0999 8.99496 12.5174 10.4025 11.4599 11.46Z" fill="white"/>
-                </svg>
+    <div class="content">
+        <div class="content-row">
+            <div v-for="post in posts.data" class="content-card">
+                <div class="content-card-body">
+                    <div class="content-image"><img :src="post.image_url"></div>
+                    <div class="content-name">{{ post.title }}</div>
+                    <div class="content-text">{{ post.content }}</div>
+                    <div class="content-meta">
+                        <span class="content-author">{{ post.author_name }}</span>
+                        <span class="content-time">{{ new Date(post.created_at).toLocaleString() }}</span>
+                    </div>
+                </div>
             </div>
-
-            <div class="search-input">
-                <input type="text" placeholder="Найдите ваш электромобиль" class="input">
-            </div>
-
-        </div>
-
-        <div class="bottoms">
-            <div class="nav-icon">
-                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.667 18.3682H18.333C24.264 18.3682 28.9999 22.9303 29 28.4209V29H1V28.4209C1.00009 22.9303 5.73446 18.3682 11.667 18.3682ZM15 1C18.6343 1 21.5 3.79064 21.5 7.10547C21.4999 10.4202 18.6343 13.2109 15 13.2109C11.3657 13.2109 8.50012 10.4202 8.5 7.10547C8.5 3.79064 11.3657 1 15 1Z" stroke="white" stroke-width="2"/>
-                </svg>
-            </div>
-
-            <div class="nav-icon">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.8212 26.8925L12.6787 25.6075L15.2925 21.25H9.04248L13.9287 13.1075L16.0712 14.3925L13.4575 18.75H19.7075L14.8212 26.8925Z" fill="white"/>
-                    <path d="M37.5 8.75H36.25V5H33.75V8.75H32.5V16.25H33.75V30.625C33.75 31.1223 33.5525 31.5992 33.2008 31.9508C32.8492 32.3025 32.3723 32.5 31.875 32.5C31.3777 32.5 30.9008 32.3025 30.5492 31.9508C30.1975 31.5992 30 31.1223 30 30.625V20C30 19.6685 29.8683 19.3505 29.6339 19.1161C29.3995 18.8817 29.0815 18.75 28.75 18.75H23.75V6.25C23.75 5.91848 23.6183 5.60054 23.3839 5.36612C23.1495 5.1317 22.8315 5 22.5 5H6.25C5.91848 5 5.60054 5.1317 5.36612 5.36612C5.1317 5.60054 5 5.91848 5 6.25V32.5H3.75C3.05964 32.5 2.5 33.0596 2.5 33.75C2.5 34.4404 3.05964 35 3.75 35H25C25.6904 35 26.25 34.4404 26.25 33.75C26.25 33.0596 25.6904 32.5 25 32.5H23.75V21.25H27.5V30.625C27.5 31.7853 27.9609 32.8981 28.7814 33.7186C29.6019 34.5391 30.7147 35 31.875 35C33.0353 35 34.1481 34.5391 34.9686 33.7186C35.7891 32.8981 36.25 31.7853 36.25 30.625V16.25H37.5V8.75ZM21.25 32.5H7.5V7.5H21.25V32.5Z" fill="white"/>
-                </svg>
-            </div>
-            <div class="nav-icon">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_404_184)">
-                        <path d="M24.2844 34.1033H21.6314V9.78948H32.8123L28.0763 17.3045C27.8361 17.6856 27.9503 18.1894 28.3315 18.4295C28.4666 18.5147 28.6169 18.5551 28.7656 18.5551C29.0364 18.5551 29.3013 18.4203 29.4563 18.1744L33.5637 11.6567L37.6709 18.1744C37.9112 18.5555 38.415 18.6697 38.796 18.4295C39.177 18.1894 39.2911 17.6856 39.051 17.3045L34.3152 9.78948H34.375C35.0732 9.78948 35.6393 9.2234 35.6393 8.52522C35.6393 7.82713 35.0733 7.26105 34.375 7.26105H25.0745C24.5493 6.49705 23.7742 5.91861 22.8667 5.644C22.737 4.17435 21.5035 3.02174 20.0001 3.02174C18.4966 3.02174 17.2631 4.17435 17.1334 5.644C16.2259 5.91861 15.4508 6.49705 14.9256 7.26105H5.62512C4.92686 7.26105 4.36077 7.82713 4.36077 8.52522C4.36077 9.2234 4.92677 9.78948 5.62512 9.78948H5.68495L0.948946 17.3045C0.708772 17.6856 0.823033 18.1894 1.20408 18.4295C1.33921 18.5147 1.48956 18.5551 1.63816 18.5551C1.90895 18.5551 2.17399 18.4203 2.32903 18.1744L6.43642 11.6567L10.5437 18.1744C10.7839 18.5555 11.2876 18.6697 11.6687 18.4295C12.0498 18.1894 12.164 17.6856 11.9239 17.3045L7.18799 9.78948H18.3689V34.1031H15.7159C14.1282 34.1031 12.8409 35.3904 12.8409 36.9782H27.1593C27.1593 35.3904 25.8721 34.1033 24.2844 34.1033Z" fill="white"/>
-                        <path d="M12.2686 20.0221C12.1809 23.1638 9.5989 25.6939 6.43652 25.694C3.27398 25.694 0.691135 23.1638 0.603516 20.0221H12.2686Z" stroke="white" stroke-width="1.2"/>
-                        <path d="M39.396 20.0221C39.3084 23.1638 36.7264 25.6939 33.564 25.694C30.4013 25.694 27.8186 23.1638 27.731 20.0221H39.396Z" stroke="white" stroke-width="1.2"/>
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_404_184">
-                            <rect width="40" height="40" fill="white"/>
-                        </clipPath>
-                    </defs>
-                </svg>
-            </div>
-            <div class="nav-icon">
-                <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 1.46957 0.210714 0.96086 0.585786 0.585787C0.960859 0.210714 1.46957 0 2 0H26C26.5304 0 27.0391 0.210714 27.4142 0.585787C27.7893 0.96086 28 1.46957 28 2C28 2.53043 27.7893 3.03914 27.4142 3.41421C27.0391 3.78929 26.5304 4 26 4H2C1.46957 4 0.960859 3.78929 0.585786 3.41421C0.210714 3.03914 0 2.53043 0 2ZM0 12C0 11.4696 0.210714 10.9609 0.585786 10.5858C0.960859 10.2107 1.46957 10 2 10H26C26.5304 10 27.0391 10.2107 27.4142 10.5858C27.7893 10.9609 28 11.4696 28 12C28 12.5304 27.7893 13.0391 27.4142 13.4142C27.0391 13.7893 26.5304 14 26 14H2C1.46957 14 0.960859 13.7893 0.585786 13.4142C0.210714 13.0391 0 12.5304 0 12ZM0 22C0 21.4696 0.210714 20.9609 0.585786 20.5858C0.960859 20.2107 1.46957 20 2 20H14C14.5304 20 15.0391 20.2107 15.4142 20.5858C15.7893 20.9609 16 21.4696 16 22C16 22.5304 15.7893 23.0391 15.4142 23.4142C15.0391 23.7893 14.5304 24 14 24H2C1.46957 24 0.960859 23.7893 0.585786 23.4142C0.210714 23.0391 0 22.5304 0 22Z" fill="white"/>
-                </svg>
-
-            </div>
-
-
         </div>
     </div>
 </template>
 
 <style scoped>
-.header {
-    color: white;
+img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.breadcrumbs {
+    /* Чтобы хлебные крошки появились после шапки, нужно учесть высоту шапки */
+    margin-top: 130px; /* 80px (высота шапки) + 20px (дополнительный отступ) */
+    margin-left: 60px; /* Отступ слева, как у body margin ранее */
+    font-size: 0.9em;
+    color: #bbb;
+    z-index: 500; /* Ниже шапки, выше контента */
+    position: relative; /* Чтобы z-index работал */
+}
+.breadcrumbs a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    margin: 0 5px;
+}
+
+
+
+
+.content {
+    margin-top: 15px; /* Отступ от хлебных крошек */
+    margin-bottom: 30px; /* Отступ снизу страницы, как у body margin ранее */
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирует ряды по горизонтали */
+}
+
+.content-row {
+    display: flex;
+    justify-content: center; /* Центрирует карточки внутри ряда */
+    gap: 50px; /* Горизонтальный отступ между постами */
+    margin-bottom: 15px; /* Вертикальный отступ между рядами */
+    width: 100%;
+    max-width: 1200px; /* Пример: Максимальная ширина для контента */
+    padding: 0 20px; /* Небольшой горизонтальный паддинг, чтобы посты не прилипали к краям экрана */
+    box-sizing: border-box;
+}
+
+/* Удаляем margin-bottom у последнего ряда, если не нужно */
+.content-row:last-child {
+    margin-bottom: 0;
+}
+
+.content-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: calc((100% - 3 * 50px) / 4); /* 4 поста в ряду, 3 отступа по 50px */
+    position: relative; /* Важно для позиционирования внутреннего контента */
+    border: 1px solid #4c4c4c;
+    border-radius: 10px; /* Закругление углов */
+    background-color: transparent; /* Прозрачный фон */
+    overflow: hidden; /* Обрезаем всё, что выходит за границы */
+    box-sizing: border-box; /* Учитываем паддинг в общей ширине */
+
+    /* Добавленные стили для соотношения сторон 1:1.2 (ширина к высоте) */
+    height: 0; /* Обнуляем высоту, чтобы она зависела от padding */
+    padding-bottom: 240px; /* 120% от ширины родителя (т.е. самой карточки) = 1.2 * ширина */
+
+    /* Внутреннее содержимое карточки будет абсолютно позиционировано */
+    display: block; /* Сбрасываем flexbox для корневого элемента, т.к. внутренний контент будет абсолютно позиционирован */
+}
+
+.content-card > div { /* Применяем ко всем прямым потомкам content-card (изображению, названию, тексту, мета) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Добавляем внутренний отступ для контента */
+    padding: 15px; /* Внутренние отступы для содержимого поста */
+    box-sizing: border-box;
+    display: flex; /* Возвращаем flexbox для правильного расположения внутреннего контента */
+    flex-direction: column;
+}
+
+
+.content-image {
+    position: absolute; /* Остается абсолютным, но теперь внутри общего абсолютного слоя */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://via.placeholder.com/400x480/CCCCCC/FFFFFF?text=Car+Image'); /* Изменен размер изображения */
+    background-size: cover;
+    background-position: center;
+    padding: 0; /* Изображению не нужен паддинг */
+}
+
+.content-name {
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 100px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+
+}
+
+.content-text {
+    color: #f0f0f0;
+    font-size: 0.9em;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-bottom: 15px;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+
+.content-meta {
+    position: relative; /* Они будут относительны к своему абсолютному родителю (div внутри .content-card) */
+    z-index: 2; /* Убедимся, что они поверх изображения */
+    /* Здесь можно сбросить top, left, width, height, т.к. они наследуются от общего родителя */
+    width: auto;
+    height: auto;
+    top: auto;
+    left: auto;
+}
+.content-meta {
+    margin-top: auto; /* Прижимаем к низу карточки */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0px;
-    position: fixed;
-    top: 0;
-    left: 60px;
-    right: 60px;
+    font-size: 0.8em;
+    color: #bbb;
+}
+.content-author {
+    font-weight: bold;
+}
+.content-time {
     z-index: 1000;
-    border-bottom: 3px solid #4c4c4c;
 }
-.nav-icon {
-    background-color: transparent;
-    border: 1px solid #4c4c4c;
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Адаптивность для разных экранов */
+@media (max-width: 1024px) {
+    .content-card {
+        max-width: calc((100% - 2 * 50px) / 3); /* 3 поста в ряду */
+    }
 }
-.bottoms {
-    display: flex;
-    gap: 35px;
-    position: relative;
-    top: auto;
-    right: auto;
-    background: transparent;
-    padding: 0;
+
+@media (max-width: 768px) {
+    .content-card {
+        max-width: calc((100% - 1 * 50px) / 2); /* 2 поста в ряду */
+    }
 }
-.search-icon {
-    margin: 20px;
-    height: 20px;
-}
-.search {
-    width: 460px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    border: 2px solid white;
-    border-radius: 30px;
-    background-color: transparent;
-    margin-right: auto;
-    margin-left: 30px;
-}
-.input {
-    width: 261px;
-    height: 30px;
-    color: white;
+
+@media (max-width: 480px) {
+    .content-row {
+        flex-direction: column; /* Посты будут располагаться вертикально */
+        gap: 15px; /* Вертикальный отступ между карточками */
+    }
+    .content-card {
+        max-width: 100%; /* На всю ширину */
+        margin-right: 0 !important; /* Убираем горизонтальный отступ */
+    }
 }
 </style>

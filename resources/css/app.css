@@ -3,8 +3,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #2D2F34;
-    margin: 30px 60px;
+    margin: 0; /* Убираем стандартные маргины body */
+    padding: 0; /* Убираем стандартные паддинги body */
 }
+
 input, textarea, select {
     background-color: transparent;
     border: none;
@@ -13,4 +15,7 @@ input, textarea, select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+* {
+    box-sizing: border-box;
 }
