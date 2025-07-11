@@ -32,5 +32,10 @@ class MainController extends Controller
         // Редирект с сообщением об успехе
         return redirect()->route('main.index')->with('success', 'Пост успешно создан!');
     }
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('main.index');
+    }
 
 }

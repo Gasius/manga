@@ -1,5 +1,5 @@
 <script>
-import {Link} from "@inertiajs/vue3";
+import {Link, useForm} from "@inertiajs/vue3";
 import Navbar from "@/Components/Navbar.vue";
 
 
@@ -11,6 +11,19 @@ export default {
     props:[
         'posts'
     ],
+    data(){
+        return {
+            deleteForm: useForm({
+                id: null
+            })
+        }
+    },
+    methods: {
+        deletePost(id){
+            this.deleteForm.id=id;
+            this.deleteForm.delete(route('posts.delete',{post: id}))
+        }
+    }
 }
 
 </script>
@@ -26,6 +39,7 @@ export default {
         <div class="content-row">
             <div v-for="post in posts.data" class="content-card">
                 <div class="content-card-body">
+                    <button @click="deletePost(post.id)" class="action-button">Delete</button>
                     <div class="content-image"><img :src="post.image_url"></div>
                     <div class="content-name">{{ post.title }}</div>
                     <div class="content-text">{{ post.content }}</div>
@@ -212,5 +226,9 @@ img {
         max-width: 100%; /* На всю ширину */
         margin-right: 0 !important; /* Убираем горизонтальный отступ */
     }
+}
+.action-button {
+    position: relative;
+    z-index: 1001;
 }
 </style>
