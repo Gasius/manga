@@ -3,25 +3,28 @@ import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import Navbar from "@/Components/Navbar.vue";
 
+const props = defineProps({
+    post: Object
+})
 const form = useForm({
-    title: '',
-    content: '',
-    author_name: '',
-    image_url: '',
+    title: props.post.title,
+    content: props.post.content,
+    author_name: props.post.author_name,
+    image_url: props.post.image_url,
 });
 
 const submit = () => {
-    form.post(route('posts.store'), {
+    form.put(route('posts.update', {post: props.post.id}), {
         onSuccess: () => form.reset(),
     });
 };
 </script>
 
 <template>
-    <Navbar/>
 
+    <Navbar/>
     <div class="form-container">
-        <h1 class="form-title">Создать новый пост</h1>
+        <h1 class="form-title">Измените свой пост</h1>
 
         <form @submit.prevent="submit" class="submit-form">
             <!-- Поле: Заголовок -->
@@ -87,7 +90,7 @@ const submit = () => {
                     :disabled="form.processing"
                     class="send-button"
                 >
-                    Создать пост
+                    Сохранить
                 </button>
                 <a
                     :href="route('main.index')"
@@ -133,6 +136,7 @@ const submit = () => {
     transition: all 0.3s ease;
     font-size: 1rem;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+    color: white;
 }
 
 .custom-input:focus {
@@ -140,6 +144,7 @@ const submit = () => {
     border-color: #a0aec0;
     background: #ffffff;
     box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45);
+    color: black;
 }
 
 .custom-textarea {
@@ -152,7 +157,7 @@ label {
     margin: 10px 0;
     font-size: 25px;
     font-weight: 600;
-  }
+}
 .send-button {
     border: 2px solid #e2e8f0;
     border-radius: 50px;

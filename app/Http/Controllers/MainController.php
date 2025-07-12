@@ -37,5 +37,20 @@ class MainController extends Controller
         $post->delete();
         return redirect()->route('main.index');
     }
+    public function edit(Post $post)
+    {
+        return inertia('Main/editPost', ['post' => $post]);
+    }
+    public function update(Request $request, Post $post){
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'author_name' => 'required|string|max:255',
+            'image_url' => 'nullable|url', // Допускает пустое значение или URL
+        ]);
+        $post->fill($validated);
+        $post->save();
+        return redirect()->route('main.index');
 
+    }
 }

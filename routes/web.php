@@ -10,4 +10,6 @@ Route::get('/create_post', [MainController::class, 'postCreate'])->name('main.po
 // Добавьте новый маршрут для сохранения поста
 Route::post('/posts', [MainController::class, 'store'])->name('posts.store');
 Route::delete('/posts/{post}', [MainController::class, 'delete'])->name('posts.delete');
+Route::get('/posts/{post}', [MainController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{post}', [MainController::class, 'update'])->name('posts.update');
 

@@ -9,7 +9,7 @@ export default {
 
 <template>
     <div class="header">
-        <b><h1>EVcompare.io</h1></b>
+        <b><h1>Manga.com</h1></b>
         <div class="search">
 
             <div class="search-icon">
@@ -19,7 +19,7 @@ export default {
             </div>
 
             <div class="search-input">
-                <input type="text" placeholder="Найдите ваш электромобиль" class="input">
+                <input type="text" placeholder="Поиск по манге" class="input">
             </div>
 
         </div>
@@ -60,9 +60,10 @@ export default {
                 </svg>
 
             </div>
-
-
         </div>
+    </div>
+    <div class="breadcrumbs">
+        <a href="/">Main Page</a> <span>></span>Ваши посты
     </div>
 </template>
 
@@ -126,5 +127,25 @@ export default {
     right: 60px;
     z-index: 1000;
     border-bottom: 3px solid #4c4c4c;
+}
+.breadcrumbs {
+    /* Чтобы хлебные крошки появились после шапки, нужно учесть высоту шапки */
+    margin-top: 130px; /* 80px (высота шапки) + 20px (дополнительный отступ) */
+    margin-left: 60px; /* Отступ слева, как у body margin ранее */
+    font-size: 0.9em;
+    color: #bbb;
+    z-index: 500; /* Ниже шапки, выше контента */
+    position: relative; /* Чтобы z-index работал */ /* Чтобы z-index работал */
+}.breadcrumbs a {
+     color: #bbb;
+     text-decoration: none;
+ }
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    margin: 0 5px;
 }
 </style>

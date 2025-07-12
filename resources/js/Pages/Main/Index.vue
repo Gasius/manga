@@ -1,9 +1,11 @@
 <script>
 import {Link, useForm} from "@inertiajs/vue3";
 import Navbar from "@/Components/Navbar.vue";
+import editPost from "@/Pages/Main/editPost.vue";
 
 
 export default {
+
     components:{
         Navbar,
         Link
@@ -22,6 +24,9 @@ export default {
         deletePost(id){
             this.deleteForm.id=id;
             this.deleteForm.delete(route('posts.delete',{post: id}))
+        },
+        editPost(id) {
+            this.$inertia.visit(route('posts.edit',{post: id}))
         }
     }
 }
@@ -31,15 +36,12 @@ export default {
 <template>
     <Navbar/>
 
-    <div class="breadcrumbs">
-        <a href="/">Main Page</a> <span>></span> Новости и анонсы
-    </div>
-
     <div class="content">
         <div class="content-row">
             <div v-for="post in posts.data" class="content-card">
                 <div class="content-card-body">
                     <button @click="deletePost(post.id)" class="action-button">Delete</button>
+                    <button @click="editPost(post.id)" class="edit-button">Edit</button>
                     <div class="content-image"><img :src="post.image_url"></div>
                     <div class="content-name">{{ post.title }}</div>
                     <div class="content-text">{{ post.content }}</div>
@@ -59,30 +61,6 @@ img {
     width: 100%;
     height: 100%;
 }
-
-.breadcrumbs {
-    /* Чтобы хлебные крошки появились после шапки, нужно учесть высоту шапки */
-    margin-top: 130px; /* 80px (высота шапки) + 20px (дополнительный отступ) */
-    margin-left: 60px; /* Отступ слева, как у body margin ранее */
-    font-size: 0.9em;
-    color: #bbb;
-    z-index: 500; /* Ниже шапки, выше контента */
-    position: relative; /* Чтобы z-index работал */
-}
-.breadcrumbs a {
-    color: #bbb;
-    text-decoration: none;
-}
-
-.breadcrumbs a:hover {
-    text-decoration: underline;
-}
-
-.breadcrumbs span {
-    margin: 0 5px;
-}
-
-
 
 
 .content {
@@ -228,6 +206,10 @@ img {
     }
 }
 .action-button {
+    position: relative;
+    z-index: 1001;
+}
+.edit-button {
     position: relative;
     z-index: 1001;
 }
