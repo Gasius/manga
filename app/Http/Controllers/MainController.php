@@ -23,7 +23,7 @@ class MainController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'author_name' => 'required|string|max:255',
-            'image_url' => 'nullable|url', // Допускает пустое значение или URL
+            'image_url' => 'nullable|url',
         ]);
 
         // Создание поста с автоматическим временем создания
@@ -46,7 +46,7 @@ class MainController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'author_name' => 'required|string|max:255',
-            'image_url' => 'nullable|url', // Допускает пустое значение или URL
+            'image_url' => 'nullable|url',
         ]);
         $post->fill($validated);
         $post->save();
