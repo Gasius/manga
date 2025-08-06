@@ -44,10 +44,18 @@ export default {
                     <button @click="editPost(post.id)" class="edit-button">Edit</button>
                     <div class="content-image"><img :src="post.image_url"></div>
                     <div class="content-name">{{ post.title }}</div>
-                    <div class="content-text">{{ post.content }}</div>
+                    <div class="button-group">
+                        <button @click="editPost(post.id)" class="action-button edit-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+                                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M18.41406,2c-0.256,0 -0.51203,0.09797 -0.70703,0.29297l-2,2l-1.41406,1.41406l-11.29297,11.29297v4h4l14.70703,-14.70703c0.391,-0.391 0.391,-1.02406 0,-1.41406l-2.58594,-2.58594c-0.195,-0.195 -0.45103,-0.29297 -0.70703,-0.29297zM18.41406,4.41406l1.17188,1.17188l-1.29297,1.29297l-1.17187,-1.17187zM15.70703,7.12109l1.17188,1.17188l-10.70703,10.70703h-1.17187v-1.17187z"></path></g></g>
+                            </svg> </button>
+                        <button @click="deletePost(post.id)" class="action-button delete-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+                                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM8.70703,7.29297l-1.41406,1.41406l3.29297,3.29297l-3.29297,3.29297l1.41406,1.41406l3.29297,-3.29297l3.29297,3.29297l1.41406,-1.41406l-3.29297,-3.29297l3.29297,-3.29297l-1.41406,-1.41406l-3.29297,3.29297z"></path></g></g>
+                            </svg> </button>
+                    </div>
                     <div class="content-meta">
                         <span class="content-author">{{ post.author_name }}</span>
-                        <span class="content-time">{{ new Date(post.created_at).toLocaleString() }}</span>
                     </div>
                 </div>
             </div>
@@ -135,27 +143,14 @@ img {
 }
 
 .content-name {
+    position: absolute;
+    top: 10px;
     color: #fff;
     font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 100px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
     z-index: 1000;
 
-}
-
-.content-text {
-    color: #f0f0f0;
-    font-size: 0.9em;
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    margin-bottom: 15px;
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 
@@ -205,12 +200,44 @@ img {
         margin-right: 0 !important; /* Убираем горизонтальный отступ */
     }
 }
-.action-button {
-    position: relative;
-    z-index: 1001;
+.button-group {
+    width: 40px;
+    position: absolute;
+    bottom: 10px; /* Отступ от нижнего края карточки */
+    right: 10px; /* Отступ от правого края карточки */
+    display: flex;
+    gap: 8px; /* Отступ между кнопками */
+    z-index: 3; /* Кнопки должны быть поверх всего */
 }
+
+.action-button {
+    width: 40px; /* Ширина кнопки */
+    height: 40px; /* Высота кнопки */
+    border-radius: 50%; /* Делаем кнопку круглой */
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1em; /* Размер иконки/текста внутри кнопки */
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s ease;
+}
+
 .edit-button {
-    position: relative;
-    z-index: 1001;
+    background-color: #007bff; /* Синий цвет для редактирования */
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    background-color: #dc3545; /* Красный цвет для удаления */
+}
+
+.delete-button:hover {
+    background-color: #bd2130;
 }
 </style>

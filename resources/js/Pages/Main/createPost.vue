@@ -8,6 +8,7 @@ const form = useForm({
     content: '',
     author_name: '',
     image_url: '',
+    genres: '',
 });
 
 const submit = () => {
@@ -80,6 +81,19 @@ const submit = () => {
                 </div>
             </div>
 
+            <div>
+                <label for="genres">Жанры (через запятую):</label>
+                <input id="genres"
+                       v-model="form.genres"
+                       type="text"
+                       placeholder="фантастика, драма, приключения"
+                       class="custom-input"
+                />
+
+                <div v-if="form.errors.genres">{{ form.errors.genres }}</div>
+
+            </div>
+
             <!-- Кнопки -->
             <div class="button-group">
                 <button
@@ -103,8 +117,8 @@ const submit = () => {
 <style>
 .form-container {
     max-width: 600px;
-    width: 90%;
-    margin: 40px auto 50px;
+    width: 70%;
+    margin: 10px auto 50px;
     padding: 30px;
     background: transparent;
     border: 2px solid white;

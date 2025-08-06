@@ -16,5 +16,6 @@ class Post extends Model
         'author_name',
         'image_url',
         'created_at',
+        'genres',
     ];
 }

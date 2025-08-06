@@ -24,6 +24,7 @@ class MainController extends Controller
             'content' => 'required|string',
             'author_name' => 'required|string|max:255',
             'image_url' => 'nullable|url',
+            'genres' => 'nullable|string',
         ]);
 
         // Создание поста с автоматическим временем создания
@@ -47,6 +48,7 @@ class MainController extends Controller
             'content' => 'required|string',
             'author_name' => 'required|string|max:255',
             'image_url' => 'nullable|url',
+            'genres' => 'nullable|string',
         ]);
         $post->fill($validated);
         $post->save();
