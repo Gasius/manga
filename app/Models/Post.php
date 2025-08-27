@@ -18,4 +18,8 @@ class Post extends Model
         'created_at',
         'genres',
     ];
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
 }

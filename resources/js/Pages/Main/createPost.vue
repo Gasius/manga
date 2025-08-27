@@ -21,91 +21,87 @@ const submit = () => {
 <template>
     <Navbar/>
 
-    <div class="form-container">
-        <h1 class="form-title">Создать новый пост</h1>
+    <div class="max-w-[400px] w-4/5 mx-auto mt-[140px] py-4 px-4 border-2 border-white rounded-[20px] flex flex-col items-center">
+        <h1 class="text-white text-lg font-bold mb-3">Создать новый пост</h1>
 
-        <form @submit.prevent="submit" class="submit-form">
-            <!-- Поле: Заголовок -->
+        <form @submit.prevent="submit" class="w-full">
             <div>
-                <label for="title" class="title">Заголовок</label>
+                <label for="title" class="text-white text-sm font-semibold block mb-1">Заголовок</label>
                 <input
                     v-model="form.title"
                     id="title"
                     type="text"
-                    class="custom-input"
+                    class="px-3 py-1 border-2 bg-white border-gray-600 rounded-full text-white placeholder-gray-500 focus:border-gray-400 focus:bg-white focus:text-gray-900"
                 >
-                <div v-if="form.errors.title" class="title-error">
+                <div v-if="form.errors.title" class="text-red-500 text-xs mt-1">
                     {{ form.errors.title }}
                 </div>
             </div>
 
-            <!-- Поле: Содержание -->
             <div>
-                <label for="content" class="content">Содержание</label>
+                <label for="content" class="text-white text-sm font-semibold block mb-1">Содержание</label>
                 <textarea
                     v-model="form.content"
                     id="content"
                     rows="4"
-                    class="custom-input custom-textarea"
+                    class="w-full px-3 py-1 border-2 border-gray-600 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white focus:text-gray-900 transition-colors duration-300 min-h-[60px] resize-y [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.03)]"
                 ></textarea>
-                <div v-if="form.errors.content" class="content-error">
+                <div v-if="form.errors.content" class="text-red-500 text-xs mt-1">
                     {{ form.errors.content }}
                 </div>
             </div>
 
-            <!-- Поле: Автор -->
             <div>
-                <label for="author_name" class="author-name">Автор</label>
+                <label for="author_name" class="text-white text-sm font-semibold block mb-1">Автор</label>
                 <input
                     v-model="form.author_name"
                     id="author_name"
                     type="text"
-                    class="custom-input"
+                    class="w-full px-3 py-1 border-2 border-gray-600 rounded-full bg-transparent text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white focus:text-gray-900 transition-colors duration-300 [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.03)]"
                 >
-                <div v-if="form.errors.author_name" class="author-error">
+                <div v-if="form.errors.author_name" class="text-red-500 text-xs mt-1">
                     {{ form.errors.author_name }}
                 </div>
             </div>
 
-            <!-- Поле: URL изображения -->
             <div>
-                <label for="image_url" class="image">URL изображения (опционально)</label>
+                <label for="image_url" class="text-white text-sm font-semibold block mb-1">URL изображения (опционально)</label>
                 <input
                     v-model="form.image_url"
                     id="image_url"
                     type="text"
-                    class="custom-input"
+                    class="w-full px-3 py-1 border-2 border-gray-600 rounded-full bg-transparent text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white focus:text-gray-900 transition-colors duration-300 [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.03)]"
                 >
-                <div v-if="form.errors.image_url" class="image-error">
+                <div v-if="form.errors.image_url" class="text-red-500 text-xs mt-1">
                     {{ form.errors.image_url }}
                 </div>
             </div>
 
             <div>
-                <label for="genres">Жанры (через запятую):</label>
-                <input id="genres"
-                       v-model="form.genres"
-                       type="text"
-                       placeholder="фантастика, драма, приключения"
-                       class="custom-input"
+                <label for="genres" class="text-white text-sm font-semibold block mb-1">Жанры (через запятую):</label>
+                <input
+                    id="genres"
+                    v-model="form.genres"
+                    type="text"
+                    placeholder="фантастика, драма, приключения"
+                    class="w-full px-3 py-1 border-2 border-gray-600 rounded-full bg-transparent text-white placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:bg-white focus:text-gray-900 transition-colors duration-300 [box-shadow:inset_0_2px_4px_rgba(0,0,0,0.03)]"
                 />
-
-                <div v-if="form.errors.genres">{{ form.errors.genres }}</div>
-
+                <div v-if="form.errors.genres" class="text-red-500 text-xs mt-1">
+                    {{ form.errors.genres }}
+                </div>
             </div>
 
-            <!-- Кнопки -->
-            <div class="button-group">
+            <div class="flex flex-col items-center gap-1 w-full mt-4">
                 <button
                     type="submit"
                     :disabled="form.processing"
-                    class="send-button"
+                    class="w-full py-2 px-3 text-white text-base font-semibold border-2 border-white rounded-full transition-colors duration-300 hover:bg-white hover:text-[#2D2F34] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Создать пост
                 </button>
                 <a
                     :href="route('main.index')"
-                    class="cancel-bottom"
+                    class="text-gray-400 text-xs font-semibold hover:underline"
                 >
                     Отмена
                 </a>
@@ -113,83 +109,3 @@ const submit = () => {
         </form>
     </div>
 </template>
-
-<style>
-.form-container {
-    max-width: 600px;
-    width: 70%;
-    margin: 10px auto 50px;
-    padding: 30px;
-    background: transparent;
-    border: 2px solid white;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-}
-
-.form-title {
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #ffffff;
-}
-
-.custom-input {
-    width: 100%;
-    padding: 14px 20px;
-    border: 2px solid #4e4e4e;
-    border-radius: 50px;
-    background: transparent;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
-}
-
-.custom-input:focus {
-    outline: none;
-    border-color: #a0aec0;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(164, 202, 254, 0.45);
-}
-
-.custom-textarea {
-    border-radius: 25px;
-    min-height: 120px;
-    resize: vertical;
-}
-label {
-    color: white;
-    margin: 10px 0;
-    font-size: 25px;
-    font-weight: 600;
-  }
-.send-button {
-    border: 2px solid #e2e8f0;
-    border-radius: 50px;
-    background-color: transparent;
-    font-size: 30px;
-    margin-top: 20px;
-    width: 100%;
-    padding: 10px;
-    color: white;
-}
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    width: 100%;
-}
-form {
-    width: 100%;
-}
-.cancel-bottom {
-    color: #4a5568;
-    font-size: 24px;
-}
-
-</style>

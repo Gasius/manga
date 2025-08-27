@@ -19,3 +19,5 @@ input, textarea, select {
 * {
     box-sizing: border-box;
 }
+@import "tailwindcss";
+@source "../views";
