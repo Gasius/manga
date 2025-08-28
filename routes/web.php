@@ -17,3 +17,7 @@ Route::put('/posts/{post}', [MainController::class, 'update'])->name('posts.upda
 
 Route::get('/post/{post}',[PostController::class,'index'])->name('post.index');
 Route::get('/read-chapter/{chapter}', [ChapterController::class, 'read'])->name('chapter.read');
+
+Route::get('/post/{post}/create-chapter', [PostController::class, 'createChapter'])->name('chapters.create');
+Route::post('/post/{post}/chapters', [PostController::class, 'storeChapter'])->name('chapters.store');
+

@@ -1,5 +1,10 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import {Link, usePage} from "@inertiajs/vue3";
+import {computed} from "vue";
+
+
+const page = usePage();
+const isPostPage = computed(() => page.props.isPostPage);
 </script>
 
 <template>
@@ -18,11 +23,12 @@ import { Link } from "@inertiajs/vue3";
                 </div>
             </div>
 
-        <div>
-            <Link :href="route('main.post.create')" class="flex items-center justify-center w-12 h-12 border border-gray-700 rounded-full hover:bg-gray-700 transition duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="50" width="100" version="1.1" id="Layer_1" viewBox="0 -42 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
-                    <path d="M306,192h-48v-48c0-4.4-3.6-8-8-8s-8,3.6-8,8v48h-48c-4.4,0-8,3.6-8,8s3.6,8,8,8h48v48c0,4.4,3.6,8,8,8s8-3.6,8-8v-48h48  c4.4,0,8-3.6,8-8S310.4,192,306,192z"/>
-                </svg>
+        <div v-if="isPostPage">
+            <Link :href="route('chapters.create', page.props.post.id)" class="flex items-center justify-center w-12 h-12 border border-gray-700 rounded-full hover:bg-gray-700 transition duration-300">                <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="50" width="100" version="1.1" id="Layer_1" viewBox="0 -42 500 500" enable-background="new 0 0 500 500" xml:space="preserve"><path d="M306,192h-48v-48c0-4.4-3.6-8-8-8s-8,3.6-8,8v48h-48c-4.4,0-8,3.6-8,8s3.6,8,8,8h48v48c0,4.4,3.6,8,8,8s8-3.6,8-8v-48h48 c4.4,0,8-3.6,8-8S310.4,192,306,192z"/></svg>
+            </Link>
+        </div>
+        <div v-else-if="$page.url === '/'">
+            <Link :href="route('main.post.create')" class="flex items-center justify-center w-12 h-12 border border-gray-700 rounded-full hover:bg-gray-700 transition duration-300">                <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="50" width="100" version="1.1" id="Layer_1" viewBox="0 -42 500 500" enable-background="new 0 0 500 500" xml:space="preserve"><path d="M306,192h-48v-48c0-4.4-3.6-8-8-8s-8,3.6-8,8v48h-48c-4.4,0-8,3.6-8,8s3.6,8,8,8h48v48c0,4.4,3.6,8,8,8s8-3.6,8-8v-48h48 c4.4,0,8-3.6,8-8S310.4,192,306,192z"/></svg>
             </Link>
         </div>
     </div>
